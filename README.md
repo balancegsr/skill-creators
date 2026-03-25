@@ -1,5 +1,7 @@
 # Skill Creator 系列
 
+> **MethodCraft** series — 把经过验证的方法论编译为可执行的 AI Skill
+
 一组 Skill Creator（生成器），根据你的项目需求生成定制化的项目级 Skill。
 
 每个 Creator 运行一次，通过 2-3 轮对话了解你的需求后，生成一个完整的 SKILL.md（+ references/）。生成物安装后，能在你的实际项目中持续引导从启动到结项的全过程。
