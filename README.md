@@ -26,9 +26,9 @@
 |---|---|---|---|
 | [learning](./learning/) | 系统学习一个领域/技能 | 学习项目引导 Skill（规划→学习→复盘→结项） | ✅ v1.2 |
 | [design](./design/) | 推进一个设计项目 | 设计项目引导 Skill（需求→调研→设计→评审→输出） | ✅ v1.0 |
-| build | 构建一个可交付物 | 构建项目引导 Skill（任务拆解→技术决策→实现→交付） | 🔲 计划中 |
+| [build](./build/) | 构建一个可交付物 | 构建项目引导 Skill（规划→技术决策→实施→验证→结项） | ✅ v1.0 |
 
-三个 Creator 覆盖"学→设计→做"的完整链路，共享统一的交互框架和文件管理机制，但在方法论骨架上各自独立——学习用四模式切换，设计用有向五步 + 回退，构建用里程碑驱动。
+三个 Creator 覆盖"学→设计→做"的完整链路，共享统一的交互框架和文件管理机制，但在方法论骨架上各自独立——学习用四模式切换，设计用有向五步 + 回退，构建用里程碑驱动 + 四子流可回退执行图。
 
 ## 工作原理
 
@@ -60,6 +60,7 @@ Creator 是一次性的生成工具。它的产物——项目级 Skill——才
 
 - [learning/README.md](./learning/README.md) — 学习项目 Skill Creator
 - [design/README.md](./design/README.md) — 设计项目 Skill Creator
+- [build/README.md](./build/README.md) — 构建项目 Skill Creator
 
 ## License
 

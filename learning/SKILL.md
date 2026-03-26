@@ -157,17 +157,6 @@ tools: [write, bash]
 
 生成时逐项检查，确保每个占位符都已处理：
 
-<<<<<<< HEAD
-| 占位符                        | 来源                                  | 处理方式                                       |
-| ----------------------------- | ------------------------------------- | ---------------------------------------------- |
-| `{{topic}}`                   | 用户输入的学习主题                    | 直接替换                                       |
-| `{{topic_slug}}`              | 从 topic 派生（小写、下划线、无空格） | 直接替换                                       |
-| `{{goal}}`                    | 用户输入的学习目标（可操作表述）      | 直接替换                                       |
-| `{{background}}`              | 用户输入的现有基础                    | 直接替换                                       |
-| `{{timeframe}}`               | 用户输入的时间范围                    | 直接替换                                       |
-| `{{learning_style_override}}` | 可选，用户提到的学习风格偏好          | 有值→插入说明文本；无值→清除占位符（不留空行） |
-| `{{verification_override}}`   | 可选，用户提到的验收方式偏好          | 有值→插入说明文本；无值→清除占位符（不留空行） |
-=======
 | 占位符 | 来源 | 处理方式 |
 |---|---|---|
 | `{{topic}}` | 用户输入的学习主题 | 直接替换 |
@@ -177,7 +166,6 @@ tools: [write, bash]
 | `{{timeframe}}` | 用户输入的时间范围 | 直接替换 |
 | `{{learning_style_override}}` | 可选，用户提到的学习风格偏好 | 有值→插入说明文本；无值→清除占位符（不留空行） |
 | `{{verification_override}}` | 可选，用户提到的验收方式偏好 | 有值→插入说明文本；无值→清除占位符（不留空行） |
->>>>>>> 693fca6 (feat: skill-creator-learning v1.2 — references 重组 + 生成物模块分文件夹)
 
 > **⚠️ 用户确认生成后，必须进入 Phase 3 执行交付流程。不要直接写文件——Phase 3 包含安装路径探测、交付方式询问等必要步骤。**
 
@@ -188,10 +176,6 @@ tools: [write, bash]
 用户确认预览后，询问交付方式：
 
 > "你希望我怎么交付？
-<<<<<<< HEAD
->
-=======
->>>>>>> 693fca6 (feat: skill-creator-learning v1.2 — references 重组 + 生成物模块分文件夹)
 > 1. **直接创建项目文件夹** — 创建独立的 `learn_[主题]/` 文件夹，skill 安装在里面，只在该文件夹的对话中生效
 > 2. **打包为 ZIP** — 生成 zip 文件，你可以自行解压到任意位置或分享给别人"
 
@@ -217,19 +201,11 @@ tools: [write, bash]
 6. 通知用户，根据实际创建位置调整措辞：
 
 创建在同级目录时：
-<<<<<<< HEAD
-
-=======
->>>>>>> 693fca6 (feat: skill-creator-learning v1.2 — references 重组 + 生成物模块分文件夹)
 > "学习项目已创建，路径：`../learn_{{topic_slug}}/`
 > skill 安装在 `{skill_prefix}/learn_{{topic_slug}}/` 下，只在该文件夹的对话中生效——学习项目和其他工作互不干扰。
 > 新起一个对话，指向这个文件夹就可以开始了。"
 
 因权限限制创建在当前目录内时：
-<<<<<<< HEAD
-
-=======
->>>>>>> 693fca6 (feat: skill-creator-learning v1.2 — references 重组 + 生成物模块分文件夹)
 > "学习项目已创建，路径：`./learn_{{topic_slug}}/`
 > 由于工具限制，项目文件夹创建在当前工作空间内部。建议你将它移动到上级目录（与当前工作空间并列），这样可以作为独立工作空间使用。
 > 移动后，新起一个对话指向该文件夹就可以开始了。"
@@ -255,10 +231,6 @@ tools: [write, bash]
 生成前最后过一遍，确保生成物质量：
 
 **内容质量**
-<<<<<<< HEAD
-
-=======
->>>>>>> 693fca6 (feat: skill-creator-learning v1.2 — references 重组 + 生成物模块分文件夹)
 - [ ] frontmatter 的 name 字段不超过 32 字符
 - [ ] frontmatter 的 description 包含触发关键词
 - [ ] 项目信息区的四个变量都已正确填充
@@ -272,10 +244,6 @@ tools: [write, bash]
 - [ ] references/ 文件与 SKILL.md 中的引用一致
 
 **交付验证**
-<<<<<<< HEAD
-
-=======
->>>>>>> 693fca6 (feat: skill-creator-learning v1.2 — references 重组 + 生成物模块分文件夹)
 - [ ] 交付前已询问用户选择交付方式（直接创建 / ZIP）
 - [ ] 已执行安装路径探测，确认 `{skill_prefix}` 值
 - [ ] skill 目录结构正确：`{skill_prefix}/learn_[topic_slug]/SKILL.md` + `references/`
