@@ -64,7 +64,8 @@ tools: [write, bash]
 - 现有基础：[基础描述]
 - 学习目标：[目标，确保是可操作表述]
 - 时间范围：[时间]
-- 推荐模式：[轻量/完整]（[一句话解释]）
+- 推荐模式：[轻量/完整]
+  └ 轻量模式默认快速推进，遇到复杂节点自动加深；完整模式默认深入系统，明确简单的环节自动精简。
 
 有需要修正的吗？确认后我生成 skill 预览。
 ```
@@ -108,6 +109,7 @@ tools: [write, bash]
 | `learning_style_override` | 可选，用户偏好     | 如未提供，留空（模板使用默认 bottom-up）                     |
 | `verification_override`   | 可选，用户偏好     | 如未提供，留空（模板使用默认启发式匹配）                     |
 | `lang`                    | 用户对话使用的语言 | 生成物使用相同语言                                           |
+| `generated_by`            | Creator 版本标识   | 固定值 `skill_creator_learning v1.3.0`                         |
 
 ### 生成逻辑
 
@@ -124,7 +126,7 @@ tools: [write, bash]
 
 4. 准备 references/ 文件：
    - 两种模式都需要：读取 `references/templates/guides/review_guide.md` → 生成 `review_guide.md`
-   - 仅完整模式额外需要：读取 `references/templates/guides/framework_guide.md` → 生成 `framework_guide.md`
+   - 两种模式都需要：读取 `references/templates/guides/framework_guide.md` → 生成 `framework_guide.md`（完整模式默认使用；轻量模式在自适应升级时使用）
 
 5. 如果对话语言不是中文，将生成物全文翻译为用户使用的语言，保持结构和格式不变
 
@@ -133,9 +135,7 @@ tools: [write, bash]
 将生成的 SKILL.md 完整内容展示给用户，然后列出 references/ 文件清单：
 
 > "此外还会生成以下配套文件：
->
 > - references/review_guide.md — 复盘执行指南
->   [完整模式额外显示：]
 > - references/framework_guide.md — 认知框架生成指南
 >
 > 你可以提出修改意见，或者确认后我直接生成。"
@@ -166,6 +166,7 @@ tools: [write, bash]
 | `{{timeframe}}` | 用户输入的时间范围 | 直接替换 |
 | `{{learning_style_override}}` | 可选，用户提到的学习风格偏好 | 有值→插入说明文本；无值→清除占位符（不留空行） |
 | `{{verification_override}}` | 可选，用户提到的验收方式偏好 | 有值→插入说明文本；无值→清除占位符（不留空行） |
+| `{{generated_by}}` | Creator 版本标识 | 固定值 `skill_creator_learning v1.3.0`，直接替换 |
 
 > **⚠️ 用户确认生成后，必须进入 Phase 3 执行交付流程。不要直接写文件——Phase 3 包含安装路径探测、交付方式询问等必要步骤。**
 
@@ -196,7 +197,7 @@ tools: [write, bash]
 1. 在当前工作空间的**同级位置**创建项目文件夹 `learn_{{topic_slug}}/`（即上级目录下的新文件夹，与当前工作空间并列）。如果因工具权限限制无法写入上级目录，则在当前目录下创建，并在步骤 6 中告知用户需要手动移动
 2. 在项目文件夹内，按探测到的 `{skill_prefix}` 创建 skill 目录：`{skill_prefix}/learn_{{topic_slug}}/`
 3. 将生成的 SKILL.md 写入该目录
-4. 在该目录下创建 `references/` 子目录，写入 review_guide.md（完整模式额外写入 framework_guide.md）
+4. 在该目录下创建 `references/` 子目录，写入 review_guide.md 和 framework_guide.md
 5. 注意：生成的文件包含大量 Markdown 特殊字符（反引号、方括号、花括号），请使用文件写入工具直接创建文件，避免通过 Shell heredoc（`cat <<EOF`）或重定向写入
 6. 通知用户，根据实际创建位置调整措辞：
 
@@ -233,6 +234,7 @@ tools: [write, bash]
 **内容质量**
 - [ ] frontmatter 的 name 字段不超过 32 字符
 - [ ] frontmatter 的 description 包含触发关键词
+- [ ] frontmatter 的 generated_by 字段已填充版本标识
 - [ ] 项目信息区的四个变量都已正确填充
 - [ ] 所有占位符已处理（替换或清除），无残留的 `{{...}}`
 - [ ] 启动协议中的文件读取逻辑与文件管理规范一致

@@ -104,6 +104,7 @@ tools: [write, bash]
 | `project_nature_tech_hint` | 从 project_nature 派生 | 工作项目→插入保守选型提示；side project→插入灵活选型提示；未知→清除 |
 | `team_override` | 可选，被动捕获的团队构成 | 有值→插入 `- 团队构成：[值]`；无值→清除占位符 |
 | `lang` | 用户对话使用的语言 | 生成物使用相同语言 |
+| `generated_by` | Creator 版本标识 | 固定值 `skill_creator_build v1.1.0` |
 
 ### 生成逻辑
 
@@ -167,6 +168,7 @@ tools: [write, bash]
 | `{{project_nature_override}}` | 可选，被动捕获的项目性质 | 有值→插入文本；无值→清除占位符（不留空行） |
 | `{{project_nature_tech_hint}}` | 从 project_nature 派生 | 有值→插入提示文本；无值→清除占位符（不留空行） |
 | `{{team_override}}` | 可选，被动捕获的团队构成 | 有值→插入文本；无值→清除占位符（不留空行） |
+| `{{generated_by}}` | Creator 版本标识 | 固定值 `skill_creator_build v1.1.0`，直接替换 |
 
 > **⚠️ 用户确认生成后，必须进入 Phase 3 执行交付流程。不要直接写文件——Phase 3 包含安装路径探测、交付方式询问等必要步骤。**
 
@@ -234,6 +236,7 @@ tools: [write, bash]
 **内容质量**
 - [ ] frontmatter 的 name 字段不超过 32 字符
 - [ ] frontmatter 的 description 包含触发关键词
+- [ ] frontmatter 的 generated_by 字段已填充版本标识
 - [ ] 项目信息区的变量都已正确填充
 - [ ] 所有占位符已处理（替换或清除），无残留的 `{{...}}`
 - [ ] 启动协议中的文件读取逻辑与文件管理规范一致
