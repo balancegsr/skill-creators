@@ -1,8 +1,8 @@
 ---
 name: build_{{topic_slug}}
 description: >
-  {{topic}} 构建项目引导。当用户在该项目中开始新对话、继续开发、
-  进行技术决策或阶段管理时触发。
+  {{topic}}构建项目引导。当用户想要推进{{topic}}的开发、继续构建、技术决策、阶段管理，
+  或者说"继续""接下来""开始开发"等任何暗示构建活动的话时，都应触发此 skill。
 tools: [write, bash, web_search]
 generated_by: {{generated_by}}
 ---
@@ -13,6 +13,7 @@ generated_by: {{generated_by}}
 
 - 项目目标：{{goal}}
 - 项目规模：{{scale}}
+- 项目文件目录：{{project_dir}}
 - 项目模式：完整模式（默认深入分析，明确简单的环节自动精简）
 {{tech_stack_override}}
 {{project_nature_override}}
@@ -25,12 +26,13 @@ generated_by: {{generated_by}}
 每次新对话开始时，执行以下步骤：
 
 1. 读取本 skill 的项目信息区，获取项目基本参数
-2. 读取项目目录下的 plan.md，确认当前阶段和阶段内进度
-3. 读取 decisions.md 最后数条，了解最近的决策上下文
-4. 如在阶段执行中：读取当前阶段文件夹内容
-5. 向用户声明当前状态，格式：
+2. 确认项目文件目录（项目信息区中的 `{{project_dir}}`）存在。如不存在则创建。**以下所有文件路径均相对于此项目文件目录。**
+3. 读取 plan.md，确认当前阶段和阶段内进度
+4. 读取 decisions.md 最后数条，了解最近的决策上下文
+5. 如在阶段执行中：读取当前阶段文件夹内容
+6. 向用户声明当前状态，格式：
    "当前进度：阶段 N [阶段名]，[阶段内进度简述]"
-6. 根据进度判断当前应处的位置：
+7. 根据进度判断当前应处的位置：
    - 尚未生成项目计划 → 进入启动流程
    - plan.md 显示当前阶段为 N → 进入阶段 N 的对应子流
    - 所有阶段已完成 → 结项
@@ -281,14 +283,14 @@ generated_by: {{generated_by}}
 
 | 触发事件 | 保存动作 | 通知 |
 |---|---|---|
-| 启动时生成项目计划 | 创建 plan.md + file_structure.md + 初始化阶段文件夹 | "项目计划已生成" |
-| 设计子流完成或更新 | 覆盖写入 design/design.md（含变更原因） | "设计文档已保存/已更新" |
-| 技术决策完成或更新 | 覆盖写入 tech/tech_decisions.md（含变更原因） | "技术方案已保存/已更新" |
-| 关键决策形成 | 追加到 decisions.md | "决策已记录" |
-| 执行子流回退 | 更新产出物 + 追加回退记录到 decisions.md | "[问题简述]，回到[子流名]重新评估" |
-| 实施任务完成 | 更新 plan.md 任务状态 | 不通知（频率太高） |
-| 阶段归档 | 生成 phase_N_summary.md + 更新 plan.md + 创建新阶段文件夹 | "阶段 N 归档完成，进入阶段 N+1" |
-| 项目结项 | 生成 project_summary.md + project_feedback.md | "项目总结已保存，项目完成" |
+| 启动时生成项目计划 | 创建 {{project_dir}}/plan.md + {{project_dir}}/file_structure.md + 初始化阶段文件夹 | "项目计划已生成" |
+| 设计子流完成或更新 | 覆盖写入 {{project_dir}}/design/design.md（含变更原因） | "设计文档已保存/已更新" |
+| 技术决策完成或更新 | 覆盖写入 {{project_dir}}/tech/tech_decisions.md（含变更原因） | "技术方案已保存/已更新" |
+| 关键决策形成 | 追加到 {{project_dir}}/decisions.md | "决策已记录" |
+| 执行子流回退 | 更新产出物 + 追加回退记录到 {{project_dir}}/decisions.md | "[问题简述]，回到[子流名]重新评估" |
+| 实施任务完成 | 更新 {{project_dir}}/plan.md 任务状态 | 不通知（频率太高） |
+| 阶段归档 | 生成 {{project_dir}}/phase_N_summary.md + 更新 {{project_dir}}/plan.md + 创建新阶段文件夹 | "阶段 N 归档完成，进入阶段 N+1" |
+| 项目结项 | 生成 {{project_dir}}/project_summary.md + {{project_dir}}/project_feedback.md | "项目总结已保存，项目完成" |
 
 ### 读取优先级
 
@@ -301,11 +303,11 @@ generated_by: {{generated_by}}
 
 ### 严禁物理删除
 
-不在任何情况下删除项目目录中的文件。项目管理文件和决策记录具有长期参考价值。"更新"是覆盖写入最新内容，变更历史在 decisions.md 和文件内的变更记录中保留。用户可随时要求查看历史决策。
+不在任何情况下删除项目文件目录中的文件。项目管理文件和决策记录具有长期参考价值。"更新"是覆盖写入最新内容，变更历史在 decisions.md 和文件内的变更记录中保留。用户可随时要求查看历史决策。
 
 ### 路径约束
 
-- 文件路径使用相对路径
+- 每次读写文件时，必须使用 `{{project_dir}}/` 作为路径前缀。例如保存项目计划时写入 `{{project_dir}}/plan.md`，而非 `plan.md`。此规则在整个项目生命周期内始终有效，不因对话轮次增加而省略
 - 文件格式统一为 Markdown
 - 加载策略按需而非全量，避免上下文窗口溢出
 - 实施产物（代码、配置文件等）不在 skill 文件管理范围内——由 agent 和用户直接管理

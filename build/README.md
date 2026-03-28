@@ -56,7 +56,7 @@ Creator 会根据项目规模推荐模式，你可以覆盖。两种模式在覆
 
 ## 生成物长什么样
 
-生成的项目 Skill 安装在项目文件夹中。随着项目推进，目录会自动生长为这样：
+生成的项目 Skill 安装到当前工作空间中。随着项目推进，目录会自动生长为这样：
 
 ```
 build_saas_dashboard/
@@ -91,64 +91,16 @@ build_saas_dashboard/
 
 这是 Build 的核心差异：**有向可回退的四子流执行图**。不是线性地走完所有步骤，而是根据执行中遇到的实际问题自主判断回退和重走——设计子流是条件触发的（有设计材料就跳过），回退信号由 agent 根据阻塞情况自主判断。
 
-## 示例：生成物的项目信息区
-
-以"搭建 CLI 工具"为例，轻量模式生成的 SKILL.md 开头：
-
-```yaml
----
-name: build_cli_tool
-description: >
-  CLI 工具构建项目引导。当用户在该项目中开始新对话、继续开发、
-  进行技术决策或阶段管理时触发。
-tools: [write, bash, web_search]
----
-```
-
-```markdown
-## 项目信息
-
-- 项目目标：用 Go 写一个文件批量重命名的 CLI 工具
-- 项目规模：1 周
-- 项目模式：轻量模式（默认快速推进，遇到复杂决策点自动加深）
-- 技术栈：Go
-- 项目性质：side project
-```
-
 ## 交付方式
 
 生成完成后你可以选择：
 
-- **直接创建** — 在当前目录的上级创建项目文件夹，Skill 直接可用
+- **直接安装** — 安装到当前工作空间，立即可用
 - **ZIP 打包** — 生成 zip 文件，可自行解压到任意位置或分享
 
 ## 兼容性
 
-主要为 OpenClaw 设计，同时兼容能操作本地文件系统的 AI Agent 产品（Claude Code、WorkBuddy、CodeBuddy 等）。
-
-- 所有指令使用描述性语言，不依赖特定平台 API
-- 安装路径自动适配平台（探测已有 skill 目录，兜底 `.agents/skills/`）
-- 文件路径使用相对路径
-- 文件格式统一为 Markdown
-- frontmatter 为标准 YAML，非 OpenClaw 环境下 agent 忽略 frontmatter 仍可读取 body
-
-## Creator 文件结构
-
-```
-skill-creator-build/
-├── SKILL.md                              # Creator 主控逻辑
-├── references/
-│   ├── templates/
-│   │   ├── skill/
-│   │   │   ├── lite.md                   # 轻量模式生成物模板
-│   │   │   └── full.md                   # 完整模式生成物模板
-│   │   └── guides/
-│   │       ├── engineering_checklist.md  # 技术决策检查清单模板
-│   │       ├── project_review_full.md   # 项目回顾指南（完整模式）
-│   │       └── project_review_lite.md   # 项目回顾指南（轻量模式）
-│   └── strategies/                       # 预留：项目类型适配策略
-└── README.md
-```
+主要为 OpenClaw 设计，同时兼容能操作本地文件系统的 AI Agent 产品（Claude Code、WorkBuddy、CodeBuddy 等）。安装路径自动适配当前平台，所有指令使用描述性语言，不依赖特定平台 API。
 
 ## 设计说明
 
@@ -164,6 +116,6 @@ skill-creator-build/
 
 ## 版本
 
-- v1.0.0 — 首次发布
+- v1.2.0 — 交付模式优化：项目 skill 直接安装到当前工作空间，消除创建独立项目文件夹的步骤
 - v1.1.0 — 自适应深度（轻量/完整模式不再是固定行为，而是默认倾向，遇到实际复杂度差异时自动调整）、生成物新增 generated_by 版本标识、结项新增 project_feedback.md 结构化反馈输出
-- 项目类型适配策略（针对不同构建类型的差异化引导）预留了扩展点，将在后续版本中根据实际使用反馈添加
+- v1.0.0 — 首次发布

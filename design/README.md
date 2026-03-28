@@ -54,7 +54,7 @@ Creator 会根据设计范围推荐模式，你可以覆盖。两种模式在覆
 
 ## 生成物长什么样
 
-生成的项目 Skill 安装在项目文件夹中。随着设计推进，项目目录会自动生长为这样：
+生成的项目 Skill 安装到当前工作空间中。随着设计推进，项目目录会自动生长为这样：
 
 ```
 design_user_onboarding/
@@ -95,36 +95,12 @@ design_user_onboarding/
 
 生成完成后你可以选择：
 
-- **直接创建** — 在当前目录的上级创建项目文件夹，Skill 直接可用
+- **直接安装** — 安装到当前工作空间，立即可用
 - **ZIP 打包** — 生成 zip 文件，可自行解压到任意位置或分享
 
 ## 兼容性
 
-主要为 OpenClaw 设计，同时兼容能操作本地文件系统的 AI Agent 产品（Claude Code、WorkBuddy、CodeBuddy 等）。
-
-- 所有指令使用描述性语言，不依赖特定平台 API
-- 安装路径自动适配平台（探测已有 skill 目录，兜底 `.agents/skills/`）
-- 文件路径使用相对路径
-- 文件格式统一为 Markdown
-- frontmatter 为标准 YAML，非 OpenClaw 环境下 agent 忽略 frontmatter 仍可读取 body
-
-## Creator 文件结构
-
-```
-skill-creator-design/
-├── SKILL.md                              # Creator 主控逻辑
-├── references/
-│   ├── templates/
-│   │   ├── skill/
-│   │   │   ├── lite.md                   # 轻量模式生成物模板
-│   │   │   └── full.md                   # 完整模式生成物模板
-│   │   └── guides/
-│   │       ├── review_checklist.md       # 评审清单模板
-│   │       ├── summary_guide_full.md     # 设计总结指南（完整模式）
-│   │       └── summary_guide_lite.md     # 设计总结指南（轻量模式）
-│   └── strategies/                       # 预留：领域适配策略
-└── README.md
-```
+主要为 OpenClaw 设计，同时兼容能操作本地文件系统的 AI Agent 产品（Claude Code、WorkBuddy、CodeBuddy 等）。安装路径自动适配当前平台，所有指令使用描述性语言，不依赖特定平台 API。
 
 ## 设计说明
 
@@ -139,6 +115,6 @@ skill-creator-design/
 
 ## 版本
 
-- v1.0.0 — 首次发布
+- v1.2.0 — 交付模式优化：项目 skill 直接安装到当前工作空间，消除创建独立项目文件夹的步骤
 - v1.1.0 — 自适应深度（轻量/完整模式不再是固定行为，而是默认倾向，遇到实际复杂度差异时自动调整）、生成物新增 generated_by 版本标识、结项新增 project_feedback.md 结构化反馈输出
-- 领域适配策略（针对不同设计领域的差异化引导）预留了扩展点，将在后续版本中根据实际使用反馈添加
+- v1.0.0 — 首次发布
