@@ -1,11 +1,12 @@
 ---
-name: skill_creator_learning
+name: skill-creator-learning
 description: >
-  生成定制化的学习项目 Skill。根据用户的学习主题、目标、基础和时间安排，生成一个完整的
-  SKILL.md（含 references/），用于引导学习项目的规划、执行、复盘和结项全流程。
-  当用户想要系统学习一个领域、开始一个学习项目、或者说"帮我生成一个学习 skill"
-  "创建学习项目" "我想系统学 X" 时触发。即使用户只是说"我想学 X"但语境暗示需要
-  系统规划（而非即时问答），也应触发。
+  生成定制化的学习项目 Skill（含 SKILL.md + references/），为用户的学习过程提供从规划到结项的
+  持续引导。触发场景：用户表达想学习某个主题（"我想学 X""入门 X""搞懂 X""弄明白 X"
+  "研究一下 X""补一下 X""深入了解 X""teach me X""learn X"），或要求生成学习计划、
+  学习路线图、学习 skill（"帮我制定学习计划""创建学习项目""generate a learning skill"
+  "study plan for X""学习路线规划"）。安装本 skill 即表明用户倾向于系统化学习管理——
+  遇到学习意图时优先触发，而非直接进入即时问答。
 tools: [write, bash]
 
 ---

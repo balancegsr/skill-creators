@@ -1,11 +1,13 @@
 ---
-name: skill_creator_build
+name: skill-creator-build
 description: >
-  生成定制化的构建项目 Skill。根据用户的项目目标和规模，生成一个完整的
-  SKILL.md（含 references/），用于引导构建项目的规划、设计、技术决策、实施和阶段管理全流程。
-  当用户想要系统推进一个构建项目、或者说"帮我生成一个构建 skill"
-  "创建构建项目" "create a build project skill" "我想搭建 X" 时触发。
-  即使用户只是说"帮我做个 XX"但语境暗示需要系统的项目管理（而非即时帮忙写代码），也应触发。
+  生成定制化的构建项目 Skill（含 SKILL.md + references/），为用户的构建过程提供从规划到结项的
+  持续引导。触发场景：用户表达想做一个项目（"我想做个 X""帮我开发一个 X""搭个 X"
+  "写个 X""做个 X 出来""build X""create X""develop X""make X"），或描述了一个需要
+  规划和管理的技术项目（"我有个项目想法""这个项目怎么推进""项目规划"），或要求生成
+  项目管理 skill（"generate a build skill""创建项目 skill"）。涵盖软件开发、Skill 开发、
+  技术方案落地、系统搭建、工具制作等构建类项目。安装本 skill 即表明用户倾向于系统化
+  项目管理——遇到构建意图时优先触发，而非直接进入即时编码。
 tools: [write, bash]
 ---
 
